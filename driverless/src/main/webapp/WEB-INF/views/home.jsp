@@ -30,22 +30,83 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rbeyz68rf5"></script>
+<script>
+	// html dom 이 다 로딩된 후 실행된다.
+	$(document).ready(function() {
+		// form 클래스 바로 하위에 있는 div 태그를 클릭했을때
+		$("label").click(function() {
+			/*alert("클릭했습니다.");*/
+			$("hide").toggle();
+		});
+	});
+</script>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<style>
+#box {
+	position: absolute;
+	top: 230px;
+	right: 120px;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	opacity: 0.5;
+}
 
-<title>도로 위의 기차</title>
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rbeyz68rf5"></script>
+#up {
+	position: absolute;
+	top: 260px;
+	right: 130px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+}
+
+#right {
+	position: absolute;
+	top: 300px;
+	right: 90px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+}
+
+#left {
+	position: absolute;
+	top: 300px;
+	right: 170px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+}
+
+#down {
+	position: absolute;
+	top: 340px;
+	right: 130px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+}
+
+#hide {
+	display: none;
+}
+
+</style>
+<title>Train On The Road</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<!-- NAVIGATION BAR -->
+	<nav class="navbar navbar-expand-sm bg-purple navbar-dark">
 		<a class="navbar-brand" href="${contextPath}/driverless"> <i
 			class="fas fa-truck"> </i> <i class="fas fa-truck"></i> <i
-			class="fas fa-truck"> </i>   train on the road
+			class="fas fa-truck"> </i> Train On The Road
 		</a>
 		<button class="navbar-toggler" data-toggle="collapse"
 			data-target="#collapsibleNavbar">
@@ -53,11 +114,10 @@
 		</button>
 	</nav>
 
-	<!-- Small boxes (Stat box) -->
+	<!-- STATE CARD -->
 	<div class="row"
 		style="padding-top: 15px; padding-left: 30px; padding-right: 30px">
 		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
 			<div class="small-box bg-aqua">
 				<div class="inner">
 					<h3>150</h3>
@@ -65,9 +125,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- ./col -->
 		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
 			<div class="small-box bg-green">
 				<div class="inner">
 					<h3>
@@ -80,13 +138,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- ./col -->
 		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
 			<div class="small-box bg-yellow">
 				<div class="inner">
 					<h3>44</h3>
-
 					<p>User Registrations</p>
 				</div>
 				<div class="icon">
@@ -94,13 +149,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- ./col -->
 		<div class="col-lg-3 col-xs-6">
-			<!-- small box -->
 			<div class="small-box bg-red">
 				<div class="inner">
 					<h3>65</h3>
-
 					<p>Unique Visitors</p>
 				</div>
 				<div class="icon">
@@ -110,6 +162,7 @@
 		</div>
 	</div>
 
+	<!-- MAP -->
 	<div class="container" id="map"
 		style="width: 90%; height: 350px; margin-bottom: 20px;"></div>
 
@@ -125,7 +178,6 @@
 				style : naver.maps.ZoomControlStyle.LARGE
 			}
 		};
-
 		var map = new naver.maps.Map('map', mapOptions);
 
 		var marker1 = {
@@ -167,6 +219,34 @@
 			icon : marker3
 		});
 	</script>
+
+	<form>
+		<div class="custom-control custom-switch" id="box">
+			<input type="checkbox" class="custom-control-input" id="switch1"
+				checked data-toggle="toggle"> <label
+				class="custom-control-label" for="switch1">Auto</label>
+			<div id="hide">
+				<button type="button" id="up">
+					<i class="fas fa-arrow-circle-up fa-3x"></i>
+				</button>
+
+				<button type="button" id="down">
+					<i class="fas fa-arrow-circle-down fa-3x"></i>
+				</button>
+
+				<button type="button" id="left">
+					<i class="fas fa-arrow-circle-left fa-3x"></i>
+				</button>
+
+				<button type="button" id="right">
+					<i class="fas fa-arrow-circle-right fa-3x"></i>
+				</button>
+			</div>
+		</div>
+
+
+	</form>
+
 	<div class="row" style="margin-left: 20px;">
 		<div class="col-sm-8">
 			<h4>주행 차량 정보</h4>
@@ -185,7 +265,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>1.</td>
+						<td>1</td>
 						<td><span class="badge bg-red">main</span></td>
 						<td>33무7693</td>
 						<td>경부고속도로</td>
