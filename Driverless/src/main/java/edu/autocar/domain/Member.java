@@ -17,19 +17,11 @@ public class Member {
 	@NotEmpty(message = "사용자 ID는 필수 항목입니다.")
 	private String userId;
 	@NotEmpty(message = "비밀번호는 필수 항목입니다.")
-	private String password;
-	private String salt;
-	@NotEmpty(message = "이름은 필수 항목입니다.")
-	private String name;
+	private String userPwd;
+	//private String salt;
+	private String userName;
 	private UserLevel userLevel;
-	@NotEmpty(message = "email 필수 항목입니다.")
-	@Email(message = "email 형식이 아닙니다.")
-	private String email;
-	private String phone;
-	private String address;
-	private Date regDate;
-	private Date updateDate;
-	MultipartFile avata;
+	private String userImg;
 
 	public Member() {
 		userLevel = UserLevel.NORMAL;
