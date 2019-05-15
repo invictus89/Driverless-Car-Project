@@ -32,23 +32,25 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rbeyz68rf5"></script>
-<script>
-	// html dom 이 다 로딩된 후 실행된다.
-	$(document).ready(function() {
-		// form 클래스 바로 하위에 있는 div 태그를 클릭했을때
-		$("label").click(function() {
-			/*alert("클릭했습니다.");*/
-			$("hide").toggle();
-		});
-	});
-</script>
+
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <style>
-#box {
+#box1 {
+	position: absolute;
+	top: 207px;
+	right: 120px;
+	color: black;
+	font-weight: bold;
+	background-color: white;
+	opacity: 0.5;
+	display: none;
+}
+
+#box2 {
 	position: absolute;
 	top: 230px;
 	right: 120px;
@@ -56,6 +58,7 @@
 	font-weight: bold;
 	background-color: white;
 	opacity: 0.5;
+	display: none;
 }
 
 #up {
@@ -97,7 +100,6 @@
 #hide {
 	display: none;
 }
-
 </style>
 <title>Train On The Road</title>
 </head>
@@ -161,7 +163,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- MAP -->
 	<div class="container" id="map"
 		style="width: 90%; height: 350px; margin-bottom: 20px;"></div>
@@ -221,36 +222,37 @@
 	</script>
 
 	<form>
-		<div class="custom-control custom-switch" id="box">
+		<p id="box1"></p>
+		<div class="custom-control custom-switch" id="box2">
 			<input type="checkbox" class="custom-control-input" id="switch1"
 				checked data-toggle="toggle"> <label
 				class="custom-control-label" for="switch1">Auto</label>
-			<div id="hide">
-				<button type="button" id="up">
-					<i class="fas fa-arrow-circle-up fa-3x"></i>
-				</button>
-
-				<button type="button" id="down">
-					<i class="fas fa-arrow-circle-down fa-3x"></i>
-				</button>
-
-				<button type="button" id="left">
-					<i class="fas fa-arrow-circle-left fa-3x"></i>
-				</button>
-
-				<button type="button" id="right">
-					<i class="fas fa-arrow-circle-right fa-3x"></i>
-				</button>
-			</div>
 		</div>
 
+		<div id="hide">
+			<button type="button" id="up">
+				<i class="fas fa-arrow-circle-up fa-3x"></i>
+			</button>
 
+			<button type="button" id="down">
+				<i class="fas fa-arrow-circle-down fa-3x"></i>
+			</button>
+
+			<button type="button" id="left">
+				<i class="fas fa-arrow-circle-left fa-3x"></i>
+			</button>
+
+			<button type="button" id="right">
+				<i class="fas fa-arrow-circle-right fa-3x"></i>
+			</button>
+		</div>
 	</form>
 
 	<div class="row" style="margin-left: 20px;">
 		<div class="col-sm-8">
 			<h4>주행 차량 정보</h4>
-			<table class="table">
+			<table id="table-1"
+				class="table table-bordered table-hover text-center">
 				<thead>
 					<tr>
 						<th style="width: 10px">#</th>
@@ -264,19 +266,50 @@
 					</tr>
 				</thead>
 				<tbody>
+					<%--<c:forEach var="board" items="${pi.list}">--%>
 					<tr>
 						<td>1</td>
 						<td><span class="badge bg-red">main</span></td>
 						<td>33무7693</td>
 						<td>경부고속도로</td>
-						<td>주행 중</td>
+						<td>Manual</td>
 						<td>
 							<div class="progress progress-xs">
 								<div class="progress-bar progress-bar-danger" style="width: 20%"></div>
 							</div>
 						</td>
 						<td>23'C / 33%</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td><span class="badge bg-blue">sub</span></td>
+						<td>02누4012</td>
+						<td>경부고속도로</td>
+						<td>Auto</td>
+						<td>
+							<div class="progress progress-xs">
+								<div class="progress-bar progress-bar-warning"
+									style="width: 40%"></div>
+							</div>
+						</td>
+						<td>21'C / 23%</td>
 						<td>5m</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td><span class="badge bg-red">main</span></td>
+						<td>05마4546</td>
+						<td>남부순환로</td>
+						<td>Auto</td>
+						<td>
+							<div class="progress progress-xs">
+								<div class="progress-bar progress-bar-success"
+									style="width: 90%"></div>
+							</div>
+						</td>
+						<td>18'C / 10%</td>
+						<td>-</td>
 					</tr>
 				</tbody>
 			</table>
@@ -285,5 +318,60 @@
 			<img src="${contextPath}/stream/camera/1" width="360" height="270" />
 		</div>
 	</div>
+
+	<script>
+		var no, car_no, state;
+		
+		$("#table-1 tr").click(function() {
+
+			var str = ""
+			var tdArr = new Array(); // 배열 선언
+
+			// 현재 클릭된 Row(<tr>)
+			var tr = $(this);
+			var td = tr.children();
+
+			// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+			td.each(function(i) {
+				tdArr.push(td.eq(i).text());
+			});
+
+			// td.eq(index)를 통해 값을 가져올 수도 있다.
+			no = td.eq(0).text();
+			car_no = td.eq(2).text();
+			state = td.eq(4).text();
+
+			$("#box1").show();
+			$("#box1").text(car_no);
+			$("#box2").show();
+
+			if (state == "Auto") {
+				$("#switch1").prop("checked", true);
+				$("#hide").hide();
+				//alert($("#switch1").prop("checked"));
+			} else if (state == "Manual") {
+				$("#switch1").prop("checked", false);
+				$("#hide").show();
+				//alert($("#switch1").prop("checked"));
+			} else {
+				alert("???");
+			}
+		});		
+
+		$("label").click(function() {
+			if (state == "Auto") {
+				$("#table-1 tr:eq("+no+") td:eq(4)").text("Manual");
+				state = $("#table-1 tr:eq("+no+") td:eq(4)").text();
+			} else if (state == "Manual") {
+				$("#table-1 tr:eq("+no+") td:eq(4)").text("Auto");
+				state = $("#table-1 tr:eq("+no+") td:eq(4)").text();
+			} else {
+				alert("???");
+			}
+			$("#hide").toggle();
+		});
+
+	</script>
+
 </body>
 </html>
