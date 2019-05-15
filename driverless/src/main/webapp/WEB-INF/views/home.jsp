@@ -42,7 +42,7 @@
 #box1 {
 	position: absolute;
 	top: 207px;
-	right: 120px;
+	right: 652px;
 	color: black;
 	font-weight: bold;
 	background-color: white;
@@ -51,47 +51,78 @@
 }
 
 #box2 {
-	position: absolute;
-	top: 230px;
-	right: 120px;
+	position: absolute; top : 230px;
+	right: 650px;
 	color: black;
 	font-weight: bold;
 	background-color: white;
 	opacity: 0.5;
 	display: none;
+	top: 230px;
 }
 
-#up {
+#fo {
 	position: absolute;
 	top: 260px;
-	right: 130px;
+	right: 710px;
 	opacity: 0.5;
 	outline: 0;
 	border-radius: 50%;
 }
 
-#right {
+#rf {
 	position: absolute;
-	top: 300px;
-	right: 90px;
+	top: 290px;
+	right: 650px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+	transform: rotate(-45deg);
+}
+
+#lf {
+	position: absolute;
+	top: 290px;
+	right: 770px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+	transform: rotate(45deg);
+}
+
+#bw {
+	position: absolute;
+	top: 380px;
+	right: 710px;
 	opacity: 0.5;
 	outline: 0;
 	border-radius: 50%;
 }
 
-#left {
+#rb {
 	position: absolute;
-	top: 300px;
-	right: 170px;
+	top: 350px;
+	right: 650px;
 	opacity: 0.5;
 	outline: 0;
 	border-radius: 50%;
+	transform: rotate(45deg);
 }
 
-#down {
+#lb {
 	position: absolute;
-	top: 340px;
-	right: 130px;
+	top: 350px;
+	right: 770px;
+	opacity: 0.5;
+	outline: 0;
+	border-radius: 50%;
+	transform: rotate(-45deg);
+}
+
+#st {
+	position: absolute;
+	top: 320px;
+	right: 710px;
 	opacity: 0.5;
 	outline: 0;
 	border-radius: 50%;
@@ -119,7 +150,7 @@
 	<!-- STATE CARD -->
 	<div class="row"
 		style="padding-top: 15px; padding-left: 30px; padding-right: 30px">
-		<div class="col-lg-3 col-xs-6">
+		<div class="col-lg-4 col-xs-6">
 			<div class="small-box bg-aqua">
 				<div class="inner">
 					<h3>150</h3>
@@ -127,35 +158,22 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-xs-6">
+		<div class="col-lg-4 col-xs-6">
 			<div class="small-box bg-green">
 				<div class="inner">
-					<h3>
-						53<sup style="font-size: 20px">%</sup>
-					</h3>
-					<p>Bounce Rate</p>
+					<h3>30</h3>
+					<p>운전자 수</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-stats-bars"></i>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-xs-6">
-			<div class="small-box bg-yellow">
+		<div class="col-lg-4 col-xs-6">
+			<div class="small-box bg-orange">
 				<div class="inner">
-					<h3>44</h3>
-					<p>User Registrations</p>
-				</div>
-				<div class="icon">
-					<i class="ion ion-person-add"></i>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-3 col-xs-6">
-			<div class="small-box bg-red">
-				<div class="inner">
-					<h3>65</h3>
-					<p>Unique Visitors</p>
+					<h3 style="text-align: center;">차량 등록</h3>
+					<p>얼른하셈</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-pie-graph"></i>
@@ -164,12 +182,18 @@
 		</div>
 	</div>
 	<!-- MAP -->
-	<div class="container" id="map"
-		style="width: 90%; height: 350px; margin-bottom: 20px;"></div>
+	<div class="row"
+		style="margin-left: 30px; margin-right: 15px; margin-bottom: 20px">
+		<div class="col-6" id="map" style="height: 360px;"></div>
+
+		<div class="col-6">
+			<img src="${contextPath}/stream/camera/1" width="100%" height="360px" />
+		</div>
+	</div>
 
 	<script>
 		var mapOptions = {
-			center : new naver.maps.LatLng(37.430312, 126.933117),
+			center : new naver.maps.LatLng(37.430312, 127.033117),
 			zoom : 5,
 			scaleControl : true,
 			logoControl : false,
@@ -179,42 +203,43 @@
 				style : naver.maps.ZoomControlStyle.LARGE
 			}
 		};
+		
 		var map = new naver.maps.Map('map', mapOptions);
 
 		var marker1 = {
-			url : '${contextPath}/resources/images/marker1.png',
+			url : './resources/images/b_truck.png',
 			size : new naver.maps.Size(32, 32),
 			origin : new naver.maps.Point(0, 0),
 			anchor : new naver.maps.Point(16, 32)
 		};
 
 		var marker2 = {
-			url : '${contextPath}/resources/images/marker2.png',
+			url : './resources/images/g_truck.png',
 			size : new naver.maps.Size(32, 32),
 			origin : new naver.maps.Point(0, 0),
 			anchor : new naver.maps.Point(16, 32)
 		};
 
 		var marker3 = {
-			url : '${contextPath}/resources/images/marker3.png',
+			url : './resources/images/r_truck.png',
 			size : new naver.maps.Size(32, 32),
 			origin : new naver.maps.Point(0, 0),
 			anchor : new naver.maps.Point(16, 32)
 		};
 
-		var marker1 = new naver.maps.Marker({
+		var truck1 = new naver.maps.Marker({
 			position : new naver.maps.LatLng(37.331017, 126.937448),
 			map : map,
 			icon : marker1
 		});
 
-		var marker2 = new naver.maps.Marker({
+		var truck2 = new naver.maps.Marker({
 			position : new naver.maps.LatLng(37.482277, 126.878965),
 			map : map,
 			icon : marker2
 		});
 
-		var marker3 = new naver.maps.Marker({
+		var truck3 = new naver.maps.Marker({
 			position : new naver.maps.LatLng(37.520928, 126.990363),
 			map : map,
 			icon : marker3
@@ -230,98 +255,103 @@
 		</div>
 
 		<div id="hide">
-			<button type="button" id="up">
+			<button type="button" id="fo">
 				<i class="fas fa-arrow-circle-up fa-3x"></i>
 			</button>
 
-			<button type="button" id="down">
+			<button type="button" id="bw">
 				<i class="fas fa-arrow-circle-down fa-3x"></i>
 			</button>
 
-			<button type="button" id="left">
+			<button type="button" id="lf">
 				<i class="fas fa-arrow-circle-left fa-3x"></i>
 			</button>
 
-			<button type="button" id="right">
+			<button type="button" id="rf">
 				<i class="fas fa-arrow-circle-right fa-3x"></i>
+			</button>
+
+			<button type="button" id="lb">
+				<i class="fas fa-arrow-circle-left fa-3x"></i>
+			</button>
+
+			<button type="button" id="rb">
+				<i class="fas fa-arrow-circle-right fa-3x"></i>
+			</button>
+
+			<button type="button" id="st">
+				<i class="fas fa-ban fa-3x"></i>
 			</button>
 		</div>
 	</form>
 
 	<div class="row" style="margin-left: 20px;">
-		<div class="col-sm-8">
-			<h4>주행 차량 정보</h4>
-			<table id="table-1"
-				class="table table-bordered table-hover text-center">
-				<thead>
-					<tr>
-						<th style="width: 10px">#</th>
-						<th>구분</th>
-						<th>차량번호</th>
-						<th>위치</th>
-						<th>주행상태</th>
-						<th>연료량</th>
-						<th>온습도</th>
-						<th>앞 차와의 거리</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%--<c:forEach var="board" items="${pi.list}">--%>
-					<tr>
-						<td>1</td>
-						<td><span class="badge bg-red">main</span></td>
-						<td>33무7693</td>
-						<td>경부고속도로</td>
-						<td>Manual</td>
-						<td>
-							<div class="progress progress-xs">
-								<div class="progress-bar progress-bar-danger" style="width: 20%"></div>
-							</div>
-						</td>
-						<td>23'C / 33%</td>
-						<td>-</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><span class="badge bg-blue">sub</span></td>
-						<td>02누4012</td>
-						<td>경부고속도로</td>
-						<td>Auto</td>
-						<td>
-							<div class="progress progress-xs">
-								<div class="progress-bar progress-bar-warning"
-									style="width: 40%"></div>
-							</div>
-						</td>
-						<td>21'C / 23%</td>
-						<td>5m</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td><span class="badge bg-red">main</span></td>
-						<td>05마4546</td>
-						<td>남부순환로</td>
-						<td>Auto</td>
-						<td>
-							<div class="progress progress-xs">
-								<div class="progress-bar progress-bar-success"
-									style="width: 90%"></div>
-							</div>
-						</td>
-						<td>18'C / 10%</td>
-						<td>-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="col-sm-4">
-			<img src="${contextPath}/stream/camera/1" width="360" height="270" />
-		</div>
+		<h4>주행 차량 정보</h4>
+		<table id="table-1"
+			class="table table-bordered table-hover text-center">
+			<thead>
+				<tr>
+					<th style="width: 10px">#</th>
+					<th>구분</th>
+					<th>차량번호</th>
+					<th>위치</th>
+					<th>주행상태</th>
+					<th>연료량</th>
+					<th>온습도</th>
+					<th>앞 차와의 거리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%--<c:forEach var="board" items="${pi.list}">--%>
+				<tr>
+					<td>1</td>
+					<td><span class="badge bg-red">main</span></td>
+					<td>33무7693</td>
+					<td>경부고속도로</td>
+					<td>Manual</td>
+					<td>
+						<div class="progress progress-xs">
+							<div class="progress-bar progress-bar-danger" style="width: 20%"></div>
+						</div>
+					</td>
+					<td>23'C / 33%</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><span class="badge bg-blue">sub</span></td>
+					<td>02누4012</td>
+					<td>경부고속도로</td>
+					<td>Auto</td>
+					<td>
+						<div class="progress progress-xs">
+							<div class="progress-bar progress-bar-warning" style="width: 40%"></div>
+						</div>
+					</td>
+					<td>21'C / 23%</td>
+					<td>5m</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><span class="badge bg-red">main</span></td>
+					<td>05마4546</td>
+					<td>남부순환로</td>
+					<td>Auto</td>
+					<td>
+						<div class="progress progress-xs">
+							<div class="progress-bar progress-bar-success" style="width: 90%"></div>
+						</div>
+					</td>
+					<td>18'C / 10%</td>
+					<td>-</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<script>
 		var no, car_no, state;
-		
+
 		$("#table-1 tr").click(function() {
 
 			var str = ""
@@ -348,29 +378,28 @@
 			if (state == "Auto") {
 				$("#switch1").prop("checked", true);
 				$("#hide").hide();
+				$("label").text("Auto");
 				//alert($("#switch1").prop("checked"));
 			} else if (state == "Manual") {
 				$("#switch1").prop("checked", false);
 				$("#hide").show();
+				$("label").text("Manual");
 				//alert($("#switch1").prop("checked"));
-			} else {
-				alert("???");
 			}
-		});		
+		});
 
 		$("label").click(function() {
 			if (state == "Auto") {
-				$("#table-1 tr:eq("+no+") td:eq(4)").text("Manual");
-				state = $("#table-1 tr:eq("+no+") td:eq(4)").text();
+				$("#table-1 tr:eq(" + no + ") td:eq(4)").text("Manual");
+				state = $("#table-1 tr:eq(" + no + ") td:eq(4)").text();
+				$(this).text("Manual");
 			} else if (state == "Manual") {
-				$("#table-1 tr:eq("+no+") td:eq(4)").text("Auto");
-				state = $("#table-1 tr:eq("+no+") td:eq(4)").text();
-			} else {
-				alert("???");
+				$("#table-1 tr:eq(" + no + ") td:eq(4)").text("Auto");
+				state = $("#table-1 tr:eq(" + no + ") td:eq(4)").text();
+				$(this).text("Auto");
 			}
 			$("#hide").toggle();
 		});
-
 	</script>
 
 </body>
