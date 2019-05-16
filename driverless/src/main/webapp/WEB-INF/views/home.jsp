@@ -31,7 +31,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rbeyz68rf5"></script>
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rbeyz68rf5&submodules=geocoder"></script>
 
 <head>
 <meta charset="UTF-8">
@@ -51,7 +51,8 @@
 }
 
 #box2 {
-	position: absolute; top : 230px;
+	position: absolute;
+	top: 230px;
 	right: 650px;
 	color: black;
 	font-weight: bold;
@@ -187,14 +188,54 @@
 		<div class="col-6" id="map" style="height: 360px;"></div>
 
 		<div class="col-6">
-			<img src="${contextPath}/stream/camera/1" width="100%" height="360px" />
+
+			<img
+				src="http://mblogthumb1.phinf.naver.net/20120331_64/s1kate_1333198045027MYyER_JPEG/IMG_0081.JPG?type=w2"
+				width="100%" height="360px" />
+			<%-- <img src="${contextPath}/stream/camera/1" width="100%" height="360px" /> --%>
 		</div>
 	</div>
 
 	<script>
+		var t1x, t1y, t2x, t2y, t3x, t3y;
+
+		var hx = 37.331017;
+		var m1x = 37.369117;
+		var m2x = 37.460659;
+		var d2x = 37.482277;
+		var m3x = 37.455704;
+		var d3x = 37.480828;
+
+		var hy = 126.937448;
+		var m1y = 126.869631;
+		var m2y = 126.890344;
+		var d2y = 126.878965;
+		var m3y = 126.797329;
+		var d3y = 126.749652;
+
+		var hm1x = (m1x - hx) / 7;
+		var hm1y = (m1y - hy) / 7;
+
+		var m21x = (m2x - m1x) / 10;
+		var m21y = (m2y - m1y) / 10;
+		var dm2x = (d2x - m2x) / 4;
+		var dm2y = (d2y - m2y) / 4;
+
+		var m31x = (m3x - m1x) / 10;
+		var m31y = (m3y - m1y) / 10;
+		var dm3x = (d3x - m3x) / 4;
+		var dm3y = (d3y - m3y) / 4;
+
+		t1x = hx - 0.001;
+		t1y = hy;
+		t2x = hx - 0.001;
+		t2y = hy + 0.001;
+		t3x = hx - 0.001;
+		t3y = hy + 0.002;
+
 		var mapOptions = {
-			center : new naver.maps.LatLng(37.430312, 127.033117),
-			zoom : 5,
+			center : new naver.maps.LatLng(37.418287, 126.848446),
+			zoom : 6,
 			scaleControl : true,
 			logoControl : false,
 			mapDataControl : false,
@@ -203,47 +244,191 @@
 				style : naver.maps.ZoomControlStyle.LARGE
 			}
 		};
-		
+
 		var map = new naver.maps.Map('map', mapOptions);
 
-		var marker1 = {
-			url : './resources/images/b_truck.png',
+		var t1 = {
+			url : './resources/images/truck_b.png',
 			size : new naver.maps.Size(32, 32),
 			origin : new naver.maps.Point(0, 0),
 			anchor : new naver.maps.Point(16, 32)
 		};
-
-		var marker2 = {
-			url : './resources/images/g_truck.png',
-			size : new naver.maps.Size(32, 32),
-			origin : new naver.maps.Point(0, 0),
-			anchor : new naver.maps.Point(16, 32)
-		};
-
-		var marker3 = {
-			url : './resources/images/r_truck.png',
-			size : new naver.maps.Size(32, 32),
-			origin : new naver.maps.Point(0, 0),
-			anchor : new naver.maps.Point(16, 32)
-		};
-
 		var truck1 = new naver.maps.Marker({
-			position : new naver.maps.LatLng(37.331017, 126.937448),
+			position : new naver.maps.LatLng(t1x, t1y),
 			map : map,
-			icon : marker1
+			icon : t1
 		});
+
+		var t2 = {
+			url : './resources/images/truck_g.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(16, 32)
+		};
 
 		var truck2 = new naver.maps.Marker({
-			position : new naver.maps.LatLng(37.482277, 126.878965),
+			position : new naver.maps.LatLng(t2x, t2y),
 			map : map,
-			icon : marker2
+			icon : t2
 		});
 
+		var t3 = {
+			url : './resources/images/truck_r.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(16, 32)
+		};
+
 		var truck3 = new naver.maps.Marker({
-			position : new naver.maps.LatLng(37.520928, 126.990363),
+			position : new naver.maps.LatLng(t3x, t3y),
 			map : map,
-			icon : marker3
+			icon : t3
 		});
+
+		var h1 = {
+			url : './resources/images/dest_b.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(16, 32)
+		};
+
+		var home = new naver.maps.Marker({
+			position : new naver.maps.LatLng(hx, hy),
+			map : map,
+			icon : h1
+		});
+
+		var d2 = {
+			url : './resources/images/dest_r.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(16, 32)
+		};
+
+		var dest2 = new naver.maps.Marker({
+			position : new naver.maps.LatLng(d2x, d2y),
+			map : map,
+			icon : d2
+		});
+
+		var d3 = {
+			url : './resources/images/dest_g.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(16, 32)
+		};
+
+		var dest3 = new naver.maps.Marker({
+			position : new naver.maps.LatLng(d3x, d3y),
+			map : map,
+			icon : d3
+		});
+
+		var m1 = {
+			url : './resources/images/marker_b.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(0, 32)
+		};
+
+		/* var marker11 = new naver.maps.Marker({
+			position : new naver.maps.LatLng(37.344197, 126.860334),
+			map : map,
+			icon : m1
+		}); */
+
+		var marker1 = new naver.maps.Marker({
+			position : new naver.maps.LatLng(m1x, m1y),
+			map : map,
+			icon : m1
+		});
+
+		var m2 = {
+			url : './resources/images/marker_r.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(0, 32)
+		};
+
+		var marker2 = new naver.maps.Marker({
+			position : new naver.maps.LatLng(m2x, m2y),
+			map : map,
+			icon : m2
+		});
+
+		var m3 = {
+			url : './resources/images/marker_g	.png',
+			size : new naver.maps.Size(32, 32),
+			origin : new naver.maps.Point(0, 0),
+			anchor : new naver.maps.Point(0, 32)
+		};
+
+		var marker3 = new naver.maps.Marker({
+			position : new naver.maps.LatLng(m3x, m3y),
+			map : map,
+			icon : m3
+		});
+
+		for (var i = 0; i < 25; i++) {
+			(function(i) {
+				setTimeout(function() {
+					if (i < 8) {
+						console.log(i);
+						t3x = hx + hm1x * i - 0.002;
+						t3y = hy + hm1y * i + 0.002;
+
+						t2x = hx + hm1x * i;
+						t2y = hy + hm1y * i;
+					} else if (i < 18) {
+						console.log(i);
+						t3x = m1x + m21x * (i - 7);
+						t3y = m1y + m21y * (i - 7);
+
+						t2x = m1x + m31x * (i - 7);
+						t2y = m1y + m31y * (i - 7);
+					} else if (i < 22) {
+						console.log(i);
+						t3x = m2x + dm2x * (i - 17);
+						t3y = m2y + dm2y * (i - 17);
+
+						t2x = m3x + dm3x * (i - 17);
+						t2y = m3y + dm3y * (i - 17);
+					} else {
+						t3x = d2x;
+						t3y = d2y;
+
+						t2x = d3x;
+						t2y = d3y;
+					}
+					truck2.setPosition(new naver.maps.LatLng(t2x, t2y));
+					truck3.setPosition(new naver.maps.LatLng(t3x, t3y));
+
+					naver.maps.Service.reverseGeocode({
+						location : new naver.maps.LatLng(t2x, t2y),
+					}, function(status, response) {
+						if (status !== naver.maps.Service.Status.OK) {
+							return alert('Something wrong!');
+						}
+						var result = response.result, // 검색 결과의 컨테이너
+						items = result.items; // 검색 결과의 배열
+						console.log(items[0].address);
+						$("#table-1 tr:eq(1) td:eq(3)").text(items[0].address);
+					});
+					
+					naver.maps.Service.reverseGeocode({
+						location : new naver.maps.LatLng(t3x, t3y),
+					}, function(status, response) {
+						if (status !== naver.maps.Service.Status.OK) {
+							return alert('Something wrong!');
+						}
+						var result = response.result, // 검색 결과의 컨테이너
+						items = result.items; // 검색 결과의 배열
+						console.log(items[0].address);
+						$("#table-1 tr:eq(2) td:eq(3)").text(items[0].address);
+					});
+				}, 1000 * i);
+			})(i);
+		}
 	</script>
 
 	<form>
