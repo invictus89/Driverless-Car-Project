@@ -19,8 +19,8 @@
       	이후 GET STARTED 버튼을 클릭하면 시뮬레이터를 이용할 수 있습니다.
        
        </h3>
-       
-       <a href="#about" class="btn btn-primary js-scroll-trigger" style="font-size:1.5em">Get Started</a>
+       <a href="#" class="btn btn-primary js-scroll-trigger" style="font-size:1.5em">Get Members</a>
+       <a href="${contextPath}/simulator/main" class="btn btn-primary js-scroll-trigger" style="font-size:1.5em">Get Started</a>
      </div>
 </div>
 

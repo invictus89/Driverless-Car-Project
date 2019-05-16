@@ -4,25 +4,22 @@
 <script>
 
 $(function(){
-	var fromPath = '${fromPath}';
-	var introMenu = "/driverless/start/intro";
-	var simulatorMenu = "/driverless/simulator/main";
-	var str = "foobar";
+	$(".dropdown").click(function(){
+		$(".dropdown-menu").css('top', 'auto').css('left', 'auto');
+	});
+	$('.dropdown .dropdown-menu').on({
+	    "click":function(e){
+	      e.stopPropagation();
+	    }
+	});
 	
-	if(fromPath.indexOf(introMenu) != -1){
-		window.onscroll = function() {scrollFunction()};
-		$("#mainNav").css("position", "auto");
-		$(".js-scroll-trigger").css("color", "rgba(255, 255, 255, 0.9)");
-	}else if(fromPath.indexOf(simulatorMenu) != -1){
-		$("#mainNav").css("position", "relative");
-		$(".js-scroll-trigger").css("color", "black");
-	}
+	
 });
 </script>
     
-<header class="intro-header">
+<header class="simulator-header">
 	<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-		<a class="navbar-brand js-scroll-trigger" href="#page-top" style="font-weight: 700">PLATOONING</a>
+		<a class="navbar-brand js-scroll-trigger" href="${contextPath}/start/intro#page-top" style="font-weight: 700">PLATOONING</a>
 	
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 	        <ul class="navbar-nav ml-auto">

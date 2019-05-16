@@ -36,7 +36,6 @@ public class LoginController {
 		Member member = service.checkPassword(
 				loginInfo.getUserId(), loginInfo.getUserPwd());
 		
-		
 		if(member != null) {
 			session.setAttribute("USER", member);
 			String target = loginInfo.getTarget();

@@ -27,10 +27,6 @@ import edu.autocar.interceptor.LoginInterceptor;
 @EnableTransactionManagement
 @ComponentScan(basePackages = { "edu.autocar" })
 public class MvcConfig implements WebMvcConfigurer {
-	/*
-	@Autowired
-	LoginInterceptor loginInterceptor;
-	*/
 	
 //	@Override
 //	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -60,11 +56,13 @@ public class MvcConfig implements WebMvcConfigurer {
 		tilesConfigurer.setCheckRefresh(true);
 		return tilesConfigurer;
 	}
-	/*
 	@Bean
 	public LoginInterceptor loginInterceptor() {
 		return new LoginInterceptor();
 	}
+	
+	@Autowired
+	LoginInterceptor loginInterceptor;
 
 	
 	// 인터셉터 등록
@@ -73,16 +71,8 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
     	registry.addInterceptor(loginInterceptor)
     			.addPathPatterns(new String[] {
-			    					"/member/**", 
-			    					"/admin/**", 
-			    					"/board/*"})
-         		.excludePathPatterns(new String[] {
-         							"/member/avata/*",
-		         					"/board/list",
-		         					"/board/view"});
-
-    	
-
+    								"/start/*"
+			    					});
 	}
 	*/
 }

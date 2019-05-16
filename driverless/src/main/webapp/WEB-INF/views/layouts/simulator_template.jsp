@@ -15,19 +15,18 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script	src="${contextPath}/resources/js/common.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/dist/css/AdminLTE.min.css">
-<link rel="stylesheet" href="${contextPath}/resources/dist/css/skins/_all-skins.min.css">
-<link rel="stylesheet" href="${contextPath}/resources/plugins/jvectormap/jquery-jvectormap.css">
-<link rel="stylesheet" href="${contextPath}/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rbeyz68rf5"></script>
 
 </head>
 <script>
+window.onscroll = function() {scrollFunction()};
 </script>
 <body id="page-top">
 
 	
-	<tiles:insertAttribute name="intro_header"/>
+	<tiles:insertAttribute name="simulator_header"/>
 	<tiles:insertAttribute name="body"/>
-	</body>
+	
+			
+
+</body>
 </head>

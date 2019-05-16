@@ -16,19 +16,23 @@
 		<put-attribute name="footer"
 			value="/WEB-INF/views/layouts/default/footer.jsp" />
 	</definition>
-	
+
 	<definition name="*" extends="default">
-		<put-attribute name="body" 
+		<put-attribute name="body"
 			value="/WEB-INF/views/{1}.jsp" />
 	</definition>
 
-	<definition name="start/*" extends="default"
+	<definition name="*/*" extends="default"
 		template="/WEB-INF/views/layouts/intro_template.jsp">
-		<put-attribute name="intro_header" value="/WEB-INF/views/layouts/intro/intro_header.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/start/{1}.jsp" />
+		<put-attribute name="intro_header"
+			value="/WEB-INF/views/layouts/intro/intro_header.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
 
+	<!-- <definition name="start/*" extends="default" template="/WEB-INF/views/layouts/intro_template.jsp"> 
+		<put-attribute name="intro_header" value="/WEB-INF/views/layouts/intro/intro_header.jsp" 
+		/> <put-attribute name="body" value="/WEB-INF/views/start/{1}.jsp" /> </definition> -->
 
-	
 </tiles-definitions>
 	
