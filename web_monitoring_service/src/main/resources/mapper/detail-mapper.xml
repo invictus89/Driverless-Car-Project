@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.autocar.detail.dao.DetailDao">
+	<select id="getPage" resultType="DetailVO">
+		select A.id, B.CODE_VAL DISTRICT, car_id,
+		park_date
+		from TB_PARKING_INFO A , TB_COMMON_CD B 
+		    WHERE B.CODE_GB = 'CITY_INFO'
+		    AND A.DISTRICT = B.CODE
+		order by id desc
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from
+		TB_PARKING_INFO
+	</select>
+</mapper>
